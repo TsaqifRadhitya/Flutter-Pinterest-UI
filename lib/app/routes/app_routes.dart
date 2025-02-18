@@ -7,4 +7,6 @@ abstract class Routes {
   static const SPLASHSCREEN = '/splashscreen';
   static const LOGIN = '/pages/login';
   static const REGISTER = '/pages/register';
+  static const PROFILE = '/pages/profile';
+  static const PRODUCT_LIST = '/pages/product-list';
 }

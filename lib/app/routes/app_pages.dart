@@ -6,6 +6,10 @@ import '../../pages/Register/bindings/register_binding.dart';
 import '../../pages/Register/views/register_view.dart';
 import '../../pages/home/bindings/home_binding.dart';
 import '../../pages/home/views/home_view.dart';
+import '../../pages/productList/bindings/product_list_binding.dart';
+import '../../pages/productList/views/product_list_view.dart';
+import '../../pages/profile/bindings/profile_binding.dart';
+import '../../pages/profile/views/profile_view.dart';
 import '../../pages/splashscreen/bindings/splashscreen_binding.dart';
 import '../../pages/splashscreen/views/splashscreen_view.dart';
 
@@ -36,6 +40,16 @@ class AppPages {
       name: Routes.REGISTER,
       page: () => const RegisterView(),
       binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: Routes.PROFILE,
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: Routes.PRODUCT_LIST,
+      page: () => const ProductListView(),
+      binding: ProductListBinding(),
     ),
   ];
 }

@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
-  //TODO: Implement HomeController
+class ProfileController extends GetxController {
+  //TODO: Implement ProfileController
 
   final count = 0.obs;
-  final isLoading = false.obs;
   @override
   void onInit() {
     super.onInit();
@@ -13,10 +12,6 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    isLoading.value = true;
-    Future.delayed(const Duration(seconds: 2),(){
-      isLoading.value = false;
-    });
   }
 
   @override

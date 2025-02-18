@@ -13,8 +13,8 @@ class LoginView extends GetView<LoginController> {
       body: Container(
           width: double.infinity,
           height: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 30.0),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
@@ -27,7 +27,7 @@ class LoginView extends GetView<LoginController> {
               mainAxisSize: MainAxisSize.min,
               spacing: 32.0,
               children: [
-                Text(
+                const Text(
                   'Login',
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -36,7 +36,7 @@ class LoginView extends GetView<LoginController> {
                   ),
                 ),
                 Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(color: Colors.white),
@@ -44,7 +44,7 @@ class LoginView extends GetView<LoginController> {
                     ),
                     child: Obx(() => TextFormField(
                           decoration: InputDecoration(
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400),
@@ -58,7 +58,7 @@ class LoginView extends GetView<LoginController> {
                               {controller.username.value = value},
                         ))),
                 Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(color: Colors.white),
@@ -66,7 +66,7 @@ class LoginView extends GetView<LoginController> {
                     ),
                     child: Obx(() => TextFormField(
                           decoration: InputDecoration(
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400),

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_x/app/routes/app_pages.dart';
 
-import '../controllers/home_controller.dart';
+import '../controllers/profile_controller.dart';
 
-class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+class ProfileView extends GetView<ProfileController> {
+  const ProfileView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class HomeView extends GetView<HomeController> {
             ),
             padding: const EdgeInsets.only(top: 40, bottom: 20),
             child: const Text(
-              'Home Page',
+              'Profile',
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.white,
@@ -33,19 +33,38 @@ class HomeView extends GetView<HomeController> {
                   fontSize: 20),
             ),
           )),
-      body: Center(
-          child: Obx(() => Column(
-                mainAxisAlignment: controller.isLoading.value
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.spaceBetween,
-                spacing: 10,
-                children: [
-                  Text(!controller.isLoading.value ? "Home" : "Loading"),
-                  controller.isLoading.value
-                      ? const CircularProgressIndicator()
-                      : Text(controller.count.value.toString())
-                ],
-              ))),
+      body: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black38,
+                            spreadRadius: 0,
+                            blurRadius: 1),
+                      ]),
+                  child: TextButton(
+                    onPressed: () => Get.offNamed(Routes.LOGIN),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.blueAccent)),
+                    child: const Text(
+                      'Logout',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ))
+            ],
+          )),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -62,13 +81,14 @@ class HomeView extends GetView<HomeController> {
           child: BottomNavigationBar(
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.production_quantity_limits), label: "Home"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.production_quantity_limits), label: "Home"),
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), label: "Profile")
             ],
             type: BottomNavigationBarType.fixed,
-            currentIndex: 0,
+            currentIndex: 3,
             elevation: 20,
             landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
             selectedItemColor: Color(0xff3584FA),
@@ -90,8 +110,6 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
       ),
-      floatingActionButton: IconButton.filled(
-          onPressed: () => controller.increment(), icon: Icon(Icons.plus_one)),
     );
   }
 }
