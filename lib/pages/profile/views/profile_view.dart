@@ -50,7 +50,7 @@ class ProfileView extends GetView<ProfileController> {
                             blurRadius: 1),
                       ]),
                   child: TextButton(
-                    onPressed: () => Get.offNamed(Routes.LOGIN),
+                    onPressed: () => controller.logout(),
                     style: ButtonStyle(
                         backgroundColor:
                             WidgetStateProperty.all(Colors.blueAccent)),

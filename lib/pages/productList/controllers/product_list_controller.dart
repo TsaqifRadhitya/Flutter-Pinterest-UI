@@ -7,10 +7,6 @@ class ProductListController extends GetxController {
 
   final ProductList = List<Product>.empty().obs;
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady(){
@@ -18,10 +14,6 @@ class ProductListController extends GetxController {
     fetchProduct();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void fetchProduct() async {
     ProductList.value = await FakerApiProvider().fetchProduct();

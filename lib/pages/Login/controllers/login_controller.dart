@@ -17,7 +17,7 @@ class LoginController extends GetxController {
   final count = 0.obs;
 
   void Login() async {
-    if (Get.isSnackbarOpen) return;
+    if (Get.isSnackbarOpen && loginLoading.value) return;
     loginLoading.value = true;
     resetErrorForm();
     if (!GetUtils.isEmail(username.value)) {
@@ -40,7 +40,6 @@ class LoginController extends GetxController {
     }
   }
 
-
   void resetErrorForm() {
     errorPassword.value = "";
     errorUsername.value = "";
@@ -54,14 +53,12 @@ class LoginController extends GetxController {
   }
 
   void loginGoogle() async {
-    if (await SupabaseProvider.LoginWithGoogle()) {
-      Get.snackbar("login", "Success");
-    } else {
-      Get.snackbar("login", "Your Google Account Is Not Exist For This App");
-    }
+    if(loginLoading.value) return;
+    loginLoading.value = true;
+    final access = await SupabaseProvider.LoginWithGoogle();
+    loginLoading.value = false;
+    if (access) Get.offNamed(Routes.HOME);
   }
-
-
 
   void increment() => count.value++;
 }

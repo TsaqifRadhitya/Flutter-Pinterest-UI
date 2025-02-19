@@ -94,7 +94,7 @@ class LoginView extends GetView<LoginController> {
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
-                            : const Text(
+                            : Text(
                                 "Login",
                                 style: TextStyle(
                                     color: Colors.white,
@@ -111,13 +111,13 @@ class LoginView extends GetView<LoginController> {
                         borderRadius: BorderRadius.circular(8.0)),
                     child: TextButton(
                         onPressed: () => controller.loginGoogle(),
-                        child: Text(
+                        child: Obx(() => controller.loginLoading.value ? const CircularProgressIndicator() : Text(
                           'Google',
                           style: TextStyle(
                               color: Colors.blue[300],
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
-                        )))
+                        ))))
               ],
             ),
           )),
