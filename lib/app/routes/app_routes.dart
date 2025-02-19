@@ -9,4 +9,6 @@ abstract class Routes {
   static const REGISTER = '/pages/register';
   static const PROFILE = '/pages/profile';
   static const PRODUCT_LIST = '/pages/product-list';
+  static const TODO = '/pages/todo';
+  static const ADD_TODO = '/pages/add-todo';
 }

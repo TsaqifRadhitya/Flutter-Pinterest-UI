@@ -105,7 +105,8 @@ class ProductListView extends GetView<ProductListController> {
                                           child: const Text(
                                             "Buy Now",
                                             style: TextStyle(
-                                                color: Colors.white,fontWeight: FontWeight.bold),
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
                                           )))
                                   // Text(item.description)
                                 ],
@@ -133,8 +134,8 @@ class ProductListView extends GetView<ProductListController> {
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.production_quantity_limits), label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+                  icon: Icon(Icons.production_quantity_limits), label: "Product"),
+              BottomNavigationBarItem(icon: Icon(Icons.task), label: "Todo"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), label: "Profile")
             ],
@@ -152,6 +153,7 @@ class ProductListView extends GetView<ProductListController> {
                   Get.offNamed(Routes.PRODUCT_LIST);
                   break;
                 case 2:
+                  Get.offNamed(Routes.TODO);
                   break;
                 case 3:
                   Get.offNamed(Routes.PROFILE);

@@ -1,0 +1,2 @@
+C:/Users/ACER/Documents/VSCODE/Flutter/get_x/android/app/.cxx/RelWithDebInfo/4t1q5y6j/x86/CMakeFiles/edit_cache.dir
+C:/Users/ACER/Documents/VSCODE/Flutter/get_x/android/app/.cxx/RelWithDebInfo/4t1q5y6j/x86/CMakeFiles/rebuild_cache.dir

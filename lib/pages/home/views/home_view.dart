@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get_x/app/data/providers/Supabase.dart';
 import 'package:get_x/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
@@ -37,13 +38,14 @@ class HomeView extends GetView<HomeController> {
           child: Obx(() => Column(
                 mainAxisAlignment: controller.isLoading.value
                     ? MainAxisAlignment.center
-                    : MainAxisAlignment.spaceBetween,
+                    : MainAxisAlignment.center,
                 spacing: 10,
                 children: [
-                  Text(!controller.isLoading.value ? "Home" : "Loading"),
-                  controller.isLoading.value
-                      ? const CircularProgressIndicator()
-                      : Text(controller.count.value.toString())
+                  Text(!controller.isLoading.value
+                      ? controller.username
+                      : "Loading"),
+                  if (controller.isLoading.value)
+                    Text(controller.count.value.toString())
                 ],
               ))),
       bottomNavigationBar: Container(
@@ -62,8 +64,9 @@ class HomeView extends GetView<HomeController> {
           child: BottomNavigationBar(
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.production_quantity_limits), label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.production_quantity_limits), label: "Product"),
+              BottomNavigationBarItem(icon: Icon(Icons.task), label: "Todo"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), label: "Profile")
             ],
@@ -71,7 +74,7 @@ class HomeView extends GetView<HomeController> {
             currentIndex: 0,
             elevation: 20,
             landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-            selectedItemColor: Color(0xff3584FA),
+            selectedItemColor: const Color(0xff3584FA),
             onTap: (value) {
               switch (value) {
                 case 0:
@@ -81,6 +84,7 @@ class HomeView extends GetView<HomeController> {
                   Get.offNamed(Routes.PRODUCT_LIST);
                   break;
                 case 2:
+                  Get.offNamed(Routes.TODO);
                   break;
                 case 3:
                   Get.offNamed(Routes.PROFILE);
@@ -91,7 +95,8 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
       floatingActionButton: IconButton.filled(
-          onPressed: () => controller.increment(), icon: Icon(Icons.plus_one)),
+          onPressed: () => controller.increment(),
+          icon: const Icon(Icons.plus_one)),
     );
   }
 }

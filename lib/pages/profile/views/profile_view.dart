@@ -53,7 +53,7 @@ class ProfileView extends GetView<ProfileController> {
                     onPressed: () => Get.offNamed(Routes.LOGIN),
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.blueAccent)),
+                            WidgetStateProperty.all(Colors.blueAccent)),
                     child: const Text(
                       'Logout',
                       textAlign: TextAlign.center,
@@ -82,8 +82,8 @@ class ProfileView extends GetView<ProfileController> {
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.production_quantity_limits), label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+                  icon: Icon(Icons.production_quantity_limits), label: "Product"),
+              BottomNavigationBarItem(icon: Icon(Icons.task), label: "Todo"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), label: "Profile")
             ],
@@ -91,7 +91,7 @@ class ProfileView extends GetView<ProfileController> {
             currentIndex: 3,
             elevation: 20,
             landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-            selectedItemColor: Color(0xff3584FA),
+            selectedItemColor: const Color(0xff3584FA),
             onTap: (value) {
               switch (value) {
                 case 0:
@@ -101,6 +101,7 @@ class ProfileView extends GetView<ProfileController> {
                   Get.offNamed(Routes.PRODUCT_LIST);
                   break;
                 case 2:
+                  Get.offNamed(Routes.TODO);
                   break;
                 case 3:
                   Get.offNamed(Routes.PROFILE);

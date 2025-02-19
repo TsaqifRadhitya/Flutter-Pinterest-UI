@@ -6,7 +6,7 @@ import 'package:get_x/app/routes/app_pages.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  LoginView({super.key});
+  const LoginView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +43,7 @@ class LoginView extends GetView<LoginController> {
                       color: Colors.white10,
                     ),
                     child: Obx(() => TextFormField(
+                          keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             labelStyle: const TextStyle(
                                 fontStyle: FontStyle.italic,
@@ -89,11 +90,16 @@ class LoginView extends GetView<LoginController> {
                         borderRadius: BorderRadius.circular(8)),
                     child: TextButton(
                         onPressed: () => controller.Login(),
-                        child: const Text(
-                          "Login",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w700),
-                        )))),
+                        child: controller.loginLoading.value
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : const Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              )))),
                 Container(
                   height: 0.5,
                   color: Colors.grey[500],
@@ -104,7 +110,7 @@ class LoginView extends GetView<LoginController> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0)),
                     child: TextButton(
-                        onPressed: () => Get.offNamed(Routes.HOME),
+                        onPressed: () => controller.loginGoogle(),
                         child: Text(
                           'Google',
                           style: TextStyle(
