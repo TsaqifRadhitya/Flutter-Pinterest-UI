@@ -11,8 +11,7 @@ class ProfileController extends GetxController {
   final count = 0.obs;
 
   void logout() async {
-    GoogleSignIn().disconnect();
-    await SupabaseProvider.supabase.auth.signOut();
+    await SupabaseProvider.logOut();
     Get.offAllNamed(Routes.LOGIN);
   }
 

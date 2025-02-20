@@ -11,18 +11,25 @@ class SplashscreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+  }
+
+  @override
+  void onReady() async {
+    super.onReady();
     Supabase.initialize(
             url: dotenv.env['SUPABASE_URL']!,
             anonKey: dotenv.env['SUPABASE_KEY']!,
             debug: true)
-        .then((Supabase) {
-      Get.put(supabaseProvider());
-      loading.value = false;
-      Get.offNamed(Routes.LOGIN);
+        .then((Supabase) async {
+      final supabase = Get.put(supabaseProvider());
+      if (await supabase.checkLogin()) {
+        await supabase.LoginWithGoogle();
+        loading.value = false;
+        Get.offAllNamed(Routes.HOME);
+      } else {
+        loading.value = false;
+        Get.offNamed(Routes.LOGIN);
+      }
     });
   }
-
-
-
-  void increment() => count.value++;
 }

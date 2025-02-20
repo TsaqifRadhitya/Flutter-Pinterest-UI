@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:get_x/app/data/models/Todo.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -8,6 +9,11 @@ class supabaseProvider extends GetxService {
   final supabase = Supabase.instance.client;
   late User? sessionUser;
   late String name;
+  final GoogleSignIn googleSignIn = GoogleSignIn(
+    clientId: dotenv.env['IOS_CLIENT_ID'],
+    serverClientId: dotenv.env['WEB_CLIENT_ID'],
+  );
+  final localStorage = GetStorage();
 
   Future<bool> Login(String email, String password) async {
     try {
@@ -20,6 +26,8 @@ class supabaseProvider extends GetxService {
           .eq('id', sessionUser!.id)
           .single();
       name = result['Name'];
+      localStorage
+          .write('regularSignIn', {'email': email, 'password': password});
       return true;
     } on AuthException {
       return false;
@@ -48,17 +56,30 @@ class supabaseProvider extends GetxService {
     return transformedTodo;
   }
 
+  Future<bool> checkLogin() async {
+    return await googleSignIn.isSignedIn() || localStorage.read('regularSignIn') != null;
+  }
+
+  Future<void> logOut() async {
+    localStorage.remove('regularSignIn');
+    await supabase.auth.signOut();
+    await googleSignIn.signOut();
+  }
+
   Future<bool> LoginWithGoogle() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn(
-      clientId: dotenv.env['IOS_CLIENT_ID'],
-      serverClientId: dotenv.env['WEB_CLIENT_ID'],
-    );
+    if(localStorage.hasData('regularSignIn')){
+      final regularSignIn = localStorage.read('regularSignIn');
+      await Login(regularSignIn['email'], regularSignIn['password']);
+      return true;
+    }
     final googleUser = await googleSignIn.signIn();
     final googleAuth = await googleUser!.authentication;
     final accessToken = googleAuth.accessToken;
     final idToken = googleAuth.idToken;
 
-    if (accessToken == null || idToken == null) {
+    if (accessToken == null ||
+        idToken == null ||
+        !await googleSignIn.isSignedIn()) {
       return false;
     }
 
@@ -67,7 +88,6 @@ class supabaseProvider extends GetxService {
         idToken: idToken,
         accessToken: accessToken);
     sessionUser = response.user;
-    // final displayName = await supabase.from('User').select('Name').eq('id', sessionUser!.id).single();
     try {
       final result = await supabase
           .from('User')
@@ -86,7 +106,6 @@ class supabaseProvider extends GetxService {
           .single();
       name = result['Name'];
     }
-
     return true;
   }
 }

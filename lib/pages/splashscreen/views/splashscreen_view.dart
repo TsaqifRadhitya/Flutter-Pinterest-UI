@@ -21,9 +21,10 @@ class SplashscreenView extends GetView<SplashscreenController> {
           width: double.infinity,
           height: double.infinity,
           padding: const EdgeInsets.all(50.0),
-          child: Obx(() => Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Obx(() => Center(
+                  child: Column(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 32,
                 children: [
                   Text(controller.loading.value
                       ? 'Waiting For Internet'
@@ -31,7 +32,7 @@ class SplashscreenView extends GetView<SplashscreenController> {
                   if (controller.loading.value)
                     const CircularProgressIndicator()
                 ],
-              ))),
+              )))),
     );
   }
 }

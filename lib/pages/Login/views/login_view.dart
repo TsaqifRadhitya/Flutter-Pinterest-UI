@@ -45,6 +45,8 @@ class LoginView extends GetView<LoginController> {
                     child: Obx(() => TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
+                            icon: const Icon(Icons.email_rounded),
+                            iconColor: Colors.white,
                             labelStyle: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: Colors.white,
@@ -58,28 +60,53 @@ class LoginView extends GetView<LoginController> {
                           onChanged: (value) =>
                               {controller.username.value = value},
                         ))),
-                Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(color: Colors.white),
-                      color: Colors.white10,
-                    ),
-                    child: Obx(() => TextFormField(
-                          decoration: InputDecoration(
-                            labelStyle: const TextStyle(
-                                fontStyle: FontStyle.italic,
+                Column(
+                  children: [
+                    Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          border: Border.all(color: Colors.white),
+                          color: Colors.white10,
+                        ),
+                        child: Obx(() => TextFormField(
+                              decoration: InputDecoration(
+                                icon: const Icon(Icons.key_rounded),
+                                iconColor: Colors.white,
+                                labelStyle: const TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400),
+                                border: InputBorder.none,
+                                errorText:
+                                    controller.errorUsername.value.isEmpty
+                                        ? null
+                                        : controller.errorPassword.value,
+                                labelText: "Password",
+                              ),
+                              onChanged: (value) =>
+                                  {controller.password.value = value},
+                            ))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "Don't Have Account ?",
+                          style: TextStyle(color: Colors.grey[400]),
+                        ),
+                        TextButton(
+                          onPressed: () => Get.offNamed(Routes.REGISTER),
+                          child: const Text(
+                            "Register",
+                            style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.w400),
-                            border: InputBorder.none,
-                            errorText: controller.errorUsername.value.isEmpty
-                                ? null
-                                : controller.errorPassword.value,
-                            labelText: "Password",
+                                fontWeight: FontWeight.bold),
                           ),
-                          onChanged: (value) =>
-                              {controller.password.value = value},
-                        ))),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
                 Obx(() => Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -94,7 +121,7 @@ class LoginView extends GetView<LoginController> {
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
-                            : Text(
+                            : const Text(
                                 "Login",
                                 style: TextStyle(
                                     color: Colors.white,
@@ -102,7 +129,7 @@ class LoginView extends GetView<LoginController> {
                               )))),
                 Container(
                   height: 0.5,
-                  color: Colors.grey[500],
+                  color: Colors.white,
                 ),
                 Container(
                     width: double.infinity,
@@ -111,13 +138,13 @@ class LoginView extends GetView<LoginController> {
                         borderRadius: BorderRadius.circular(8.0)),
                     child: TextButton(
                         onPressed: () => controller.loginGoogle(),
-                        child: Obx(() => controller.loginLoading.value ? const CircularProgressIndicator() : Text(
+                        child: Text(
                           'Google',
                           style: TextStyle(
                               color: Colors.blue[300],
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
-                        ))))
+                        )))
               ],
             ),
           )),
