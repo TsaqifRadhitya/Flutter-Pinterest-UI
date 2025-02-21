@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_x/app/data/providers/Supabase.dart';
 
 import '../controllers/splashscreen_controller.dart';
 
@@ -8,5 +9,6 @@ class SplashscreenBinding extends Bindings {
     Get.lazyPut<SplashscreenController>(
       () => SplashscreenController(),
     );
+    Get.lazyPut<supabaseProvider>(() => supabaseProvider());
   }
 }

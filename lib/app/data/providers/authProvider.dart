@@ -5,8 +5,7 @@ import 'package:get_x/app/data/models/Todo.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class supabaseProvider extends GetxService {
-  final count = 0.obs;
+class authProvider extends GetxService {
   final supabase = Supabase.instance.client;
   late User? sessionUser;
   late String name;
@@ -21,19 +20,12 @@ class supabaseProvider extends GetxService {
       final respons = await supabase.auth
           .signInWithPassword(email: email, password: password);
       sessionUser = respons.user;
-      try {
-        final result = await supabase
-            .from('User')
-            .select('Name')
-            .eq('id', sessionUser!.id)
-            .single();
-        name = result['Name'];
-      } on PostgrestException {
-        await supabase
-            .from('User')
-            .insert({'Name': email, 'id': respons.user!.id});
-        name = email;
-      }
+      final result = await supabase
+          .from('User')
+          .select('Name')
+          .eq('id', sessionUser!.id)
+          .single();
+      name = result['Name'];
       localStorage
           .write('regularSignIn', {'email': email, 'password': password});
       return true;
@@ -42,30 +34,16 @@ class supabaseProvider extends GetxService {
     }
   }
 
-  Future<void> Register(String email, String password) async {
-    await supabase.auth.signUp(
-      password: password,
-      email: email,
+  Future<bool> Register(String email, String password) async {
+    supabase.auth.signUp(
+      password: '',
+      email: '',
     );
-  }
-
-  Future<void> createTodo(
-      String title, String description, String category) async {
-    await supabase.from('Todos').insert(
-        {'title': title, 'description': description, 'category': category});
-  }
-
-  Future<List<Todo>> fetchTodo() async {
-    List<Map<String, dynamic>> result =
-        await supabase.from('Todos').select().eq('fk_user', sessionUser!.id);
-    List<Todo> transformedTodo =
-        result.map((item) => Todo.fromJson(item)).toList();
-    return transformedTodo;
+    return true;
   }
 
   Future<bool> checkLogin() async {
-    return await googleSignIn.isSignedIn() ||
-        localStorage.read('regularSignIn') != null;
+    return await googleSignIn.isSignedIn() || localStorage.read('regularSignIn') != null;
   }
 
   Future<void> logOut() async {
@@ -75,7 +53,7 @@ class supabaseProvider extends GetxService {
   }
 
   Future<bool> LoginWithGoogle() async {
-    if (localStorage.hasData('regularSignIn')) {
+    if(localStorage.hasData('regularSignIn')){
       final regularSignIn = localStorage.read('regularSignIn');
       await Login(regularSignIn['email'], regularSignIn['password']);
       return true;

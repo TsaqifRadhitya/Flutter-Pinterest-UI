@@ -5,27 +5,14 @@ class HomeController extends GetxController {
   //TODO: Implement HomeController
 
   final count = 0.obs;
-  final isLoading = false.obs;
-  final String username = Get.find<supabaseProvider>().name;
+  final supabase = Get.find<supabaseProvider>();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {
     super.onReady();
-    isLoading.value = true;
-    Future.delayed(const Duration(seconds: 2), () {
-      isLoading.value = false;
-    });
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void increment() => count.value++;
 }

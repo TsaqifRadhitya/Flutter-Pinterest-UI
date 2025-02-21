@@ -106,6 +106,7 @@ class TodoView extends GetView<TodoController> {
         onPressed: ()=> Get.toNamed(Routes.ADD_TODO),
         icon: Icon(Icons.add),
         style: ButtonStyle(
+          shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
             fixedSize: WidgetStatePropertyAll(Size.fromRadius(30))),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

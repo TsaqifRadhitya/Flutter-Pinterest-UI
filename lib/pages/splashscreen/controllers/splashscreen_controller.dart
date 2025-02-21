@@ -20,8 +20,8 @@ class SplashscreenController extends GetxController {
             url: dotenv.env['SUPABASE_URL']!,
             anonKey: dotenv.env['SUPABASE_KEY']!,
             debug: true)
-        .then((Supabase) async {
-      final supabase = Get.put(supabaseProvider());
+        .then((e) async {
+      final supabase = Get.find<supabaseProvider>();
       if (await supabase.checkLogin()) {
         await supabase.LoginWithGoogle();
         loading.value = false;

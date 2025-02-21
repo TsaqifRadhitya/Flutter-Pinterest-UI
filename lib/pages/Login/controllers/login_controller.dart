@@ -11,6 +11,7 @@ class LoginController extends GetxController {
   final errorPassword = "".obs;
   final SupabaseProvider = Get.find<supabaseProvider>();
   final loginLoading = false.obs;
+  final passwordVisible = true.obs;
 
   //TODO: Implement LoginController
 

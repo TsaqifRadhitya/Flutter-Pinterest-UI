@@ -14,9 +14,13 @@ class AddTodoView extends GetView<AddTodoController> {
         centerTitle: true,
       ),
       body: Center(
-        child: Obx(() => (controller.progresUpload.value ? CircularProgressIndicator() : Text('Ready To Add')))
-      ),
+          child: Obx(() => (controller.progresUpload.value
+              ? CircularProgressIndicator()
+              : Text('Ready To Add')))),
       floatingActionButton: IconButton.filled(
+          style: ButtonStyle(
+              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)))),
           onPressed: () {
             controller.addTodo();
           },

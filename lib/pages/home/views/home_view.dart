@@ -35,19 +35,11 @@ class HomeView extends GetView<HomeController> {
             ),
           )),
       body: Center(
-          child: Obx(() => Column(
-                mainAxisAlignment: controller.isLoading.value
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.center,
-                spacing: 10,
-                children: [
-                  Text(!controller.isLoading.value
-                      ? controller.username
-                      : "Loading"),
-                  if (controller.isLoading.value)
-                    Text(controller.count.value.toString())
-                ],
-              ))),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 10,
+        children: [Text(controller.supabase.name)],
+      )),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -65,7 +57,8 @@ class HomeView extends GetView<HomeController> {
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.production_quantity_limits), label: "Product"),
+                  icon: Icon(Icons.production_quantity_limits),
+                  label: "Product"),
               BottomNavigationBarItem(icon: Icon(Icons.task), label: "Todo"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), label: "Profile")
@@ -94,9 +87,6 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
       ),
-      floatingActionButton: IconButton.filled(
-          onPressed: () => controller.increment(),
-          icon: const Icon(Icons.plus_one)),
     );
   }
 }
